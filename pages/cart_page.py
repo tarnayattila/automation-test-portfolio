@@ -1,0 +1,32 @@
+import allure
+from core.base_page import BasePage
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
+
+class CartPage(BasePage):
+
+    CHECKOUT = (By.ID, "checkout")
+    CART_ITEM = (By.CLASS_NAME, "cart_item")
+    REMOVE_BTN = (By.CLASS_NAME, "cart_button")
+
+    def get_items(self):
+        return self.driver.find_elements(*self.CART_ITEM)
+
+    def get_items_count(self):
+        return len(self.get_items())
+
+    def remove_first_item(self):
+        items = self.get_items()
+        if items:
+            items[0].find_element(By.CLASS_NAME, "cart_button").click()
+
+    @allure.step("Start checkout")
+    def start_checkout(self):
+        self.wait.until(
+            EC.element_to_be_clickable(self.CHECKOUT)
+        ).click()
+
+        self.wait.until(
+            EC.url_contains("checkout-step-one")
+        )

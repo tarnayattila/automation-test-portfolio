@@ -1,0 +1,6 @@
+FIRST: Attila
+LAST: Tester
+ZIP: 2134
+FIRST visible: True
+FIRST enabled: True
+[Current url: ] https://www.saucedemo.com/checkout-step-two.html

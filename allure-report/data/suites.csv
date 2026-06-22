@@ -1,0 +1,6 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","723","test_invalid_login","tests","2026-06-22","passed","2026-06-22","","test_invalid_login","",""
+"","1453","test_checkout","tests","2026-06-22","passed","2026-06-22","","test_checkout","",""
+"","1058","test_add_to_cart","tests","2026-06-22","passed","2026-06-22","","test_cart","",""
+"","763","test_valid_login","tests","2026-06-22","passed","2026-06-22","","test_valid_login","",""
+"","97","test_get_users","tests","2026-06-22","passed","2026-06-22","","test_api_users","",""
