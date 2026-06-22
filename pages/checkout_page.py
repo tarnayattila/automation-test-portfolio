@@ -61,6 +61,7 @@ class CheckoutPage(BasePage):
             lambda d: "checkout-step-two" in d.current_url
         )
 
+        self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
     @allure.step("Finish checkout")
     def finish_checkout(self):
         self.debug_url("Current url: ")
@@ -68,6 +69,7 @@ class CheckoutPage(BasePage):
         self.wait.until(
             EC.visibility_of_element_located((By.CLASS_NAME, "checkout-complete")))
         self.is_visible(self.SUCCESS)
+
 
     @allure.step("Successful checkout")
     def get_success_message(self):
