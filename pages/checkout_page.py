@@ -69,7 +69,6 @@ class CheckoutPage(BasePage):
         self.wait.until(
             EC.visibility_of_element_located((By.ID, "checkout_complete_container"))
         )
-        print(self.driver.current_url)
         self.is_visible(self.SUCCESS)
 
 
