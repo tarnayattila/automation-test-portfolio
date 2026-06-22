@@ -35,7 +35,7 @@ class InventoryPage(BasePage):
     def open_cart(self):
         self.click(self.CART_ICON)
         self.wait.until(
-            EC.presence_of_element_located((By.CLASS_NAME, "cart_list"))
+            EC.presence_of_element_located((By.CLASS_NAME, "cart_contents_container"))
         )
     def get_cart_count(self):
         try:
