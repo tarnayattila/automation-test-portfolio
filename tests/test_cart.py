@@ -11,12 +11,14 @@ def test_add_to_cart(driver):
     login.open()
     login.login("standard_user", "secret_sauce")
 
+    assert "inventory" in driver.current_url
+
     inventory.add_backpack()
     inventory.add_bike_light()
     inventory.open_cart()
-    inventory.get_cart_count()
     cart.remove_first_item()
-    inventory.get_cart_count()
+    assert inventory.get_cart_count() == "1"
+
     cart.start_checkout()
 
     assert inventory.get_cart_count() == "1"
