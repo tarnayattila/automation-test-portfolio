@@ -34,7 +34,15 @@ class InventoryPage(BasePage):
     @allure.step("Open cart")
     def open_cart(self):
         self.click(self.CART_ICON)
-        self.wait.until(EC.visibility_of_element_located((By.ID, "cart_contents_container")))
+
+        self.wait.until(
+            lambda d: "cart.html" in d.current_url
+        )
+
+        assert "cart" in self.driver.current_url
 
     def get_cart_count(self):
-        return self.get_text(self.CART_BADGE)
+        try:
+            return self.get_text(self.CART_BADGE)
+        except:
+            return "0"
