@@ -23,10 +23,8 @@ class CartPage(BasePage):
 
     @allure.step("Start checkout")
     def start_checkout(self):
-        self.wait.until(
-            EC.element_to_be_clickable(self.CHECKOUT)
-        ).click()
-
+        self.debug_url("Current url: ")
+        self.click(self.CHECKOUT)
         self.wait.until(
             EC.url_contains("checkout-step-one")
         )
