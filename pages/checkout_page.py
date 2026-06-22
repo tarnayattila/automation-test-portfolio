@@ -40,16 +40,6 @@ class CheckoutPage(BasePage):
         last_val = self.driver.find_element(*self.LAST).get_attribute("value")
         zip_val = self.driver.find_element(*self.ZIP).get_attribute("value")
 
-        print("FIRST:", first_val)
-        print("LAST:", last_val)
-        print("ZIP:", zip_val)
-
-        print("FIRST visible:",
-              self.driver.find_element(*self.FIRST).is_displayed())
-
-        print("FIRST enabled:",
-              self.driver.find_element(*self.FIRST).is_enabled())
-
         assert first_val == first
         assert last_val == last
         assert zip_val == zip_code
