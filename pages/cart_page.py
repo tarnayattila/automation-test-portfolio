@@ -25,6 +25,4 @@ class CartPage(BasePage):
     def start_checkout(self):
         self.debug_url("Current url: ")
         self.click(self.CHECKOUT)
-        self.wait.until(
-            EC.url_contains("checkout-step-one")
-        )
+        self.wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "checkout-step-one")))

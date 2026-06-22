@@ -25,6 +25,8 @@ class CheckoutPage(BasePage):
     def start_checkout(self):
         self.click(self.CHECKOUT)
         return self.wait.until(
+            EC.visibility_of_element_located((By.CLASS_NAME, "step-one")))
+        return self.wait.until(
             EC.url_contains("checkout-step-one")
         )
 
@@ -64,8 +66,7 @@ class CheckoutPage(BasePage):
         self.debug_url("Current url: ")
         self.click(self.FINISH)
         self.wait.until(
-            EC.url_contains("checkout-complete")
-        )
+            EC.visibility_of_element_located((By.CLASS_NAME, "checkout-complete")))
         self.is_visible(self.SUCCESS)
 
     @allure.step("Successful checkout")
