@@ -27,4 +27,3 @@ class CartPage(BasePage):
         self.click(self.CHECKOUT)
         self.wait.until(EC.visibility_of_element_located(((By.ID, "checkout_info_container")))
                         )
-        self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
