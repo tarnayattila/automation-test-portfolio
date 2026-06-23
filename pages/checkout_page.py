@@ -26,9 +26,6 @@ class CheckoutPage(BasePage):
         self.click(self.CHECKOUT)
         return self.wait.until(
             EC.visibility_of_element_located((By.CLASS_NAME, "step-one")))
-        return self.wait.until(
-            EC.url_contains("checkout-step-one")
-        )
 
     @allure.step("Fill checkout form")
     def fill_info(self, first, last, zip_code):
@@ -39,32 +36,6 @@ class CheckoutPage(BasePage):
         first_val = self.driver.find_element(*self.FIRST).get_attribute("value")
         last_val = self.driver.find_element(*self.LAST).get_attribute("value")
         zip_val = self.driver.find_element(*self.ZIP).get_attribute("value")
-
-        print("FIRST:", first_val)
-        print("LAST:", last_val)
-        print("ZIP:", zip_val)
-
-        print("FIRST visible:",
-              self.driver.find_element(*self.FIRST).is_displayed())
-
-        print("FIRST enabled:",
-              self.driver.find_element(*self.FIRST).is_enabled())
-
-        print("LAST visible:",
-              self.driver.find_element(*self.LAST).is_displayed())
-
-        print("LAST enabled:",
-              self.driver.find_element(*self.LAST).is_enabled() )
-
-        print("ZIP visible:",
-              self.driver.find_element(*self.ZIP).is_displayed())
-
-        print("ZIP enabled:",
-              self.driver.find_element(*self.ZIP).is_enabled())
-
-        print("FIRST VALUE:", self.driver.find_element(By.ID, "first-name").get_attribute("value"))
-        print("LAST VALUE:", self.driver.find_element(By.ID, "last-name").get_attribute("value"))
-        print("ZIP VALUE:", self.driver.find_element(By.ID, "postal-code").get_attribute("value"))
 
         assert first_val == first
         assert last_val == last
@@ -77,7 +48,6 @@ class CheckoutPage(BasePage):
 
     @allure.step("Continue checkout")
     def continue_checkout(self):
-        self.debug_url("Current url: ")
         self.click(self.CONTINUE)
 
         self.wait.until(
@@ -85,8 +55,6 @@ class CheckoutPage(BasePage):
                 (By.ID, "checkout_summary_container")
             )
         )
-
-        print("NOW ON STEP TWO:", self.driver.current_url)
 
     @allure.step("Finish checkout")
     def finish_checkout(self):
