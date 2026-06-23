@@ -50,17 +50,29 @@ class CheckoutPage(BasePage):
         print("FIRST enabled:",
               self.driver.find_element(*self.FIRST).is_enabled())
 
+        print("LAST visible:",
+              self.driver.find_element(*self.LAST).is_displayed())
+
+        print("LAST enabled:",
+              self.driver.find_element(*self.LAST).is_enabled() )
+
+        print("ZIP visible:",
+              self.driver.find_element(*self.ZIP).is_displayed())
+
+        print("ZIP enabled:",
+              self.driver.find_element(*self.ZIP).is_enabled())
+
         assert first_val == first
         assert last_val == last
         assert zip_val == zip_code
 
     @allure.step("Continue checkout")
     def continue_checkout(self):
+        self.debug_url("Current url: ")
         self.click(self.CONTINUE)
         self.wait.until(
-            lambda d: "checkout-step-two" in d.current_url
+            EC.visibility_of_element_located((By.ID, "finish"))
         )
-
         self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
     @allure.step("Finish checkout")
     def finish_checkout(self):

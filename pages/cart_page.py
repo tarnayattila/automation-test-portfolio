@@ -24,8 +24,8 @@ class CartPage(BasePage):
     @allure.step("Start checkout")
     def start_checkout(self):
         self.debug_url("Current url: ")
+        self.click(self.CHECKOUT)
         self.wait.until(
             EC.visibility_of_element_located(((By.ID, "checkout_info_container")))
         )
-        self.click(self.CHECKOUT)
         self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
