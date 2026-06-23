@@ -62,26 +62,40 @@ class CheckoutPage(BasePage):
         print("ZIP enabled:",
               self.driver.find_element(*self.ZIP).is_enabled())
 
+        print("FIRST VALUE:", self.driver.find_element(By.ID, "first-name").get_attribute("value"))
+        print("LAST VALUE:", self.driver.find_element(By.ID, "last-name").get_attribute("value"))
+        print("ZIP VALUE:", self.driver.find_element(By.ID, "postal-code").get_attribute("value"))
+
         assert first_val == first
         assert last_val == last
         assert zip_val == zip_code
+        self.wait.until(
+            EC.presence_of_element_located(
+                (By.ID, "continue")
+            )
+        )
 
     @allure.step("Continue checkout")
     def continue_checkout(self):
         self.debug_url("Current url: ")
         self.click(self.CONTINUE)
+
         self.wait.until(
-            EC.visibility_of_element_located((By.ID, "finish"))
+            EC.presence_of_element_located(
+                (By.ID, "checkout_summary_container")
+            )
         )
-        self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
+
+        print("NOW ON STEP TWO:", self.driver.current_url)
+
     @allure.step("Finish checkout")
     def finish_checkout(self):
-        self.debug_url("Current url: ")
         self.click(self.FINISH)
+
         self.wait.until(
-            EC.visibility_of_element_located((By.ID, "checkout_complete_container"))
+            EC.visibility_of_element_located(self.SUCCESS)
         )
-        self.is_visible(self.SUCCESS)
+        assert self.is_visible(self.SUCCESS)
 
 
     @allure.step("Successful checkout")
