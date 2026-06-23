@@ -1,3 +1,5 @@
+import time
+
 import allure
 from core.base_page import BasePage
 from selenium.webdriver.common.by import By
@@ -37,24 +39,50 @@ class CheckoutPage(BasePage):
         last_val = self.driver.find_element(*self.LAST).get_attribute("value")
         zip_val = self.driver.find_element(*self.ZIP).get_attribute("value")
 
+        print("FIRST:", first_val)
+        print("LAST:", last_val)
+        print("ZIP:", zip_val)
+
+        print("FIRST visible:",
+              self.driver.find_element(*self.FIRST).is_displayed())
+
+        print("FIRST enabled:",
+              self.driver.find_element(*self.FIRST).is_enabled())
+
+        print("LAST visible:",
+              self.driver.find_element(*self.LAST).is_displayed())
+
+        print("LAST enabled:",
+              self.driver.find_element(*self.LAST).is_enabled() )
+
+        print("ZIP visible:",
+              self.driver.find_element(*self.ZIP).is_displayed())
+
+        print("ZIP enabled:",
+              self.driver.find_element(*self.ZIP).is_enabled())
+
+        print("FIRST VALUE:", self.driver.find_element(By.ID, "first-name").get_attribute("value"))
+        print("LAST VALUE:", self.driver.find_element(By.ID, "last-name").get_attribute("value"))
+        print("ZIP VALUE:", self.driver.find_element(By.ID, "postal-code").get_attribute("value"))
+
         assert first_val == first
         assert last_val == last
         assert zip_val == zip_code
-        self.wait.until(
-            EC.presence_of_element_located(
-                (By.ID, "continue")
-            )
-        )
+
 
     @allure.step("Continue checkout")
     def continue_checkout(self):
+        self.debug_url("Current url: ")
         self.click(self.CONTINUE)
+        self.debug_url("Current url: ")
 
         self.wait.until(
             EC.presence_of_element_located(
                 (By.ID, "checkout_summary_container")
             )
         )
+
+        print("NOW ON STEP TWO:", self.driver.current_url)
 
     @allure.step("Finish checkout")
     def finish_checkout(self):
