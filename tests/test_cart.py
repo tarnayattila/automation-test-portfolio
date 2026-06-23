@@ -17,6 +17,6 @@ def test_add_to_cart(driver):
     inventory.add_bike_light()
     inventory.open_cart()
     cart.remove_first_item()
-    inventory.get_cart_count()
-    assert inventory.get_cart_count() == "1"
+    cart.get_cart_count()
+    assert cart.get_cart_count() == "1"
     cart.start_checkout()
