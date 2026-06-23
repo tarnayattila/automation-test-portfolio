@@ -23,6 +23,20 @@ class InventoryPage(BasePage):
     def add_bike_light(self):
         self.click(self.ADD_BIKE_LIGHT)
 
+    @allure.step("Remove Backpack")
+    def remove_backpack(self):
+        self.click(self.REMOVE_BACKPACK)
+
+    @allure.step("Remove Bike Light")
+    def remove_bike_light(self):
+        self.click(self.REMOVE_BIKE_LIGHT)
+
+    def get_cart_count(self):
+        try:
+            return self.get_text(self.CART_BADGE)
+        except:
+            return "0"
+
     @allure.step("Open cart")
     def open_cart(self):
         self.click(self.CART_ICON)
