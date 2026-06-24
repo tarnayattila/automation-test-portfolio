@@ -53,13 +53,17 @@ class CheckoutPage(BasePage):
         assert first_val == first
         assert last_val == last
         assert zip_val == zip_code
-
+        self.wait.until(lambda d: self.FIRST[1] in d.page_source)
+        self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
 
     @allure.step("Continue checkout")
     def continue_checkout(self):
-        self.debug_url("Current url: ")
-        self.driver.execute_script("document.activeElement.blur();")
-        self.click(self.CONTINUE)
+        self.debug_url("CURRENT URL: ")
+        self.safe_click(self.CONTINUE)
+
+    @allure.step("Finish checkout")
+    def finish_checkout(self):
+        self.debug_url("CURRENT URL: ")
         self.wait.until(
             lambda d: (
                     len(d.find_elements(By.ID, "checkout_summary_container")) > 0
@@ -71,9 +75,9 @@ class CheckoutPage(BasePage):
 
         if errors and errors[0].text.strip():
             raise AssertionError(f"Checkout failed: {errors[0].text}")
+        self.wait.until(EC.url_contains("checkout-step-two"))
 
-    @allure.step("Finish checkout")
-    def finish_checkout(self):
+        assert "checkout-step-two" in self.driver.current_url
         print("NOW ON STEP TWO:", self.driver.current_url)
         self.wait.until(
             EC.visibility_of_element_located(self.FINISH)

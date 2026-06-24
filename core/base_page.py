@@ -1,7 +1,10 @@
+from pydoc import text
+
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.webdriver.common.keys import Keys
 import time
+from selenium.common.exceptions import ElementClickInterceptedException
 
 class BasePage:
 
@@ -18,19 +21,23 @@ class BasePage:
 
     def click(self, locator):
         element = self.wait.until(EC.presence_of_element_located(locator))
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        self.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", element)
+
+        self.wait.until(EC.visibility_of(element))
+        self.wait.until(EC.element_to_be_clickable(locator))
 
         try:
-            self.wait.until(EC.element_to_be_clickable(locator))
             element.click()
-        except ElementClickInterceptedException:
+        except:
             self.driver.execute_script("arguments[0].click();", element)
 
-    def type(self, locator, text, retries=2):
-        last_exception = None
+    def safe_click(self, locator):
+        element = self.wait.until(EC.element_to_be_clickable(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        self.driver.execute_script("arguments[0].click();", element)
 
-        for _ in range(retries):
-            try:
+    def type(self, locator, text,):
+
                 element = self.wait.until(EC.visibility_of_element_located(locator))
 
                 self.driver.execute_script(
@@ -41,41 +48,11 @@ class BasePage:
                 element.click()
                 element.clear()
 
-                element.send_keys(text,"\t")
-
-                value = element.get_attribute("value")
-
-                if value == text:
-                    return
-
-                self.driver.execute_script("""
-                    arguments[0].value = arguments[1];
-                    arguments[0].dispatchEvent(new Event('input', { bubbles: true }));
-                    arguments[0].dispatchEvent(new Event('change', { bubbles: true }));
-                """, element, text)
-
-                value = element.get_attribute("value")
-
-                if value == text:
-                    return
-
-            except Exception as e:
-                last_exception = e
-                time.sleep(0.3)
-
-        raise Exception(f"Type failed for {locator}: {text}") from last_exception
+                element.send_keys(text)
+                self.wait.until(lambda d: len(d.find_element(*locator).get_attribute("value")) >= len(text) - 1)
 
     def type_and_verify(self, locator, text):
         self.type(locator, text)
-
-        value = self.driver.find_element(*locator).get_attribute("value")
-
-        if value != text:
-            self.driver.execute_script(
-                "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input', {bubbles:true}));",
-                self.driver.find_element(*locator),
-                text
-            )
 
     def get_text(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator)).text

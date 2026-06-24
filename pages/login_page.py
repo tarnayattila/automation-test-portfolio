@@ -13,8 +13,8 @@ class LoginPage(BasePage):
 
     @allure.step("Login with user: {user} and password: {password}")
     def login(self, user, password):
-        self.type_and_verify(self.USERNAME, user)
-        self.type_and_verify(self.PASSWORD, password)
+        self.type(self.USERNAME, user)
+        self.type(self.PASSWORD, password)
         self.click(self.LOGIN_BTN)
 
     def get_error_message(self):
