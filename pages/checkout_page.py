@@ -1,5 +1,4 @@
 import allure
-import time
 from core.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -59,22 +58,26 @@ class CheckoutPage(BasePage):
     @allure.step("Continue checkout")
     def continue_checkout(self):
         self.debug_url("Current url: ")
+        self.driver.execute_script("document.activeElement.blur();")
         self.click(self.CONTINUE)
+        self.wait.until(
+            lambda d: (
+                    len(d.find_elements(By.ID, "checkout_summary_container")) > 0
+                    or len(d.find_elements(By.CLASS_NAME, "error-message-container")) > 0
+            )
+        )
+
+        errors = self.driver.find_elements(By.CLASS_NAME, "error-message-container")
+
+        if errors and errors[0].text.strip():
+            raise AssertionError(f"Checkout failed: {errors[0].text}")
 
     @allure.step("Finish checkout")
     def finish_checkout(self):
-        self.wait.until(
-            EC.url_contains("checkout-step-two")
-        )
-
-        self.wait.until(
-            EC.presence_of_element_located(
-                (By.ID, "checkout_summary_container")
-            )
-        )
-        assert "checkout-step-two" in self.driver.current_url
-
         print("NOW ON STEP TWO:", self.driver.current_url)
+        self.wait.until(
+            EC.visibility_of_element_located(self.FINISH)
+        )
         self.click(self.FINISH)
         self.wait.until(
             EC.visibility_of_element_located(self.SUCCESS)

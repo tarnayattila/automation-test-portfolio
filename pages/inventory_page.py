@@ -21,13 +21,13 @@ class InventoryPage(BasePage):
 
     @allure.step("Add Bike Light")
     def add_bike_light(self):
+        self.wait.until(
+            EC.visibility_of_element_located((By.ID, "remove-sauce-labs-backpack"))
+        )
         self.click(self.ADD_BIKE_LIGHT)
 
     @allure.step("Remove Backpack")
     def remove_backpack(self):
-        self.wait.until(
-            EC.visibility_of_element_located((By.ID, "remove-sauce-labs-backpack"))
-        )
         self.click(self.REMOVE_BACKPACK)
 
     @allure.step("Remove Bike Light")
@@ -43,9 +43,3 @@ class InventoryPage(BasePage):
     @allure.step("Open cart")
     def open_cart(self):
         self.click(self.CART_ICON)
-        self.wait.until(
-            EC.visibility_of_element_located((By.CLASS_NAME, "cart_list"))
-        )
-        self.wait.until(
-            lambda d: len(d.find_elements(By.CLASS_NAME, "cart_item")) >= 0
-        )

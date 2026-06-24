@@ -44,7 +44,7 @@ class BasePage:
                 element.click()
                 element.clear()
 
-                element.send_keys(text)
+                element.send_keys(text,"\t")
 
                 value = element.get_attribute("value")
 
