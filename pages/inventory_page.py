@@ -22,7 +22,7 @@ class InventoryPage(BasePage):
     @allure.step("Add Bike Light")
     def add_bike_light(self):
         self.wait.until(
-            EC.visibility_of_element_located((By.ID, "remove-sauce-labs-backpack"))
+            EC.presence_of_element_located((By.ID, "remove-sauce-labs-backpack"))
         )
         self.click(self.ADD_BIKE_LIGHT)
 
