@@ -28,15 +28,16 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-        
+
       - name: Install Allure
         run: |
-              sudo apt-get update
-              sudo apt-get install -y default-jre
-              wget https://github.com/allure-framework/allure2/releases/latest/download/allure-2.25.0.tgz
-              tar -zxvf allure-2.25.0.tgz
-              sudo mv allure-2.25.0 /opt/allure
-              sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          sudo apt-get update
+          sudo apt-get install -y default-jre wget
+          ALLURE_VERSION=2.25.0
+          wget https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
+          tar -zxvf allure-${ALLURE_VERSION}.tgz
+          sudo mv allure-${ALLURE_VERSION} /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
 
       - name: Run tests
         run: pytest -v --alluredir=allure-results
