@@ -17,14 +17,11 @@ class BasePage:
         return self.driver.find_element(*locator)
 
     def click(self, locator):
-        element = self.wait.until(EC.element_to_be_clickable(locator))
-
-        self.driver.execute_script(
-            "arguments[0].scrollIntoView({block: 'center'});",
-            element
-        )
+        element = self.wait.until(EC.presence_of_element_located(locator))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
 
         try:
+            self.wait.until(EC.element_to_be_clickable(locator))
             element.click()
         except ElementClickInterceptedException:
             self.driver.execute_script("arguments[0].click();", element)
