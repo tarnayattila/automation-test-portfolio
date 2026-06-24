@@ -1,0 +1,6 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Wed Jun 24 07:52:17 UTC 2026","Wed Jun 24 07:52:18 UTC 2026","971","tests","test_cart","","","","test_add_to_cart",""
+"passed","Wed Jun 24 07:52:21 UTC 2026","Wed Jun 24 07:52:21 UTC 2026","603","tests","test_valid_login","","","","test_valid_login",""
+"passed","Wed Jun 24 07:52:18 UTC 2026","Wed Jun 24 07:52:20 UTC 2026","1406","tests","test_checkout","","","","test_checkout",""
+"passed","Wed Jun 24 07:52:14 UTC 2026","Wed Jun 24 07:52:14 UTC 2026","122","tests","test_api_users","","","","test_get_users",""
+"passed","Wed Jun 24 07:52:20 UTC 2026","Wed Jun 24 07:52:21 UTC 2026","598","tests","test_invalid_login","","","","test_invalid_login",""
