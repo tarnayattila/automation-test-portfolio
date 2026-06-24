@@ -49,7 +49,9 @@ class BasePage:
                 element.clear()
 
                 element.send_keys(text)
-                self.wait.until(lambda d: len(d.find_element(*locator).get_attribute("value")) >= len(text) - 1)
+                self.wait.until(
+                    lambda d: d.find_element(*locator).get_attribute("value") == text
+                )
 
     def type_and_verify(self, locator, text):
         self.type(locator, text)
