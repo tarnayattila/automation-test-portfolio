@@ -25,6 +25,9 @@ class InventoryPage(BasePage):
 
     @allure.step("Remove Backpack")
     def remove_backpack(self):
+        self.wait.until(
+            EC.visibility_of_element_located((By.ID, "remove-sauce-labs-backpack"))
+        )
         self.click(self.REMOVE_BACKPACK)
 
     @allure.step("Remove Bike Light")
