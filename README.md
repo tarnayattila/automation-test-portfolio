@@ -1,5 +1,13 @@
-![Tests](https://github.com/user/repo/actions/workflows/tests.yml/badge.svg)
 ## Test Automation Framework (Selenium + Pytest + POM + Allure) 
+
+![CI](https://github.com/tarnayattila/automation-test-portfolio/actions/workflows/tests.yml/badge.svg)
+![Python](https://img.shields.io/badge/python-3.11-blue.svg)
+![Selenium](https://img.shields.io/badge/selenium-automation-green.svg)
+![Pytest](https://img.shields.io/badge/pytest-testing-yellow.svg)
+![POM](https://img.shields.io/badge/architecture-page%20object%20model-blueviolet.svg)
+![CI/CD](https://img.shields.io/badge/CI%2FCD-GitHub%20Actions-black.svg)
+
+A UI automation framework built with Selenium and Pytest using Page Object Model architecture.
 
 ## Overview
 
@@ -31,13 +39,10 @@ The project simulates testing a real e-commerce web application.
 ## 📁 Project Structure
 
 
-pages/ → Page Object Models
-tests/ → Test cases
-conftest.py → Fixtures & setup
-requirements.txt
-pytest.ini
-allure-results/
-allure-report/
+pages/ – Page Object Model classes  
+tests/ – Test cases (UI & regression)  
+utils/ – helpers and utilities  
+conftest.py – pytest fixtures  
 
 
 ---
