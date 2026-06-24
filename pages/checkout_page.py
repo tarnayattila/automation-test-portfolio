@@ -1,6 +1,5 @@
-import time
-
 import allure
+import time
 from core.base_page import BasePage
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -31,6 +30,11 @@ class CheckoutPage(BasePage):
 
     @allure.step("Fill checkout form")
     def fill_info(self, first, last, zip_code):
+        self.wait.until(
+            EC.url_contains("checkout-step-one")
+        )
+        assert "checkout-step-one" in self.driver.current_url
+        self.wait.until(lambda d: d.execute_script("return document.readyState") == "complete")
         self.type_and_verify(self.FIRST, first)
         self.type_and_verify(self.LAST, last)
         self.type_and_verify(self.ZIP, zip_code)
@@ -42,24 +46,6 @@ class CheckoutPage(BasePage):
         print("FIRST:", first_val)
         print("LAST:", last_val)
         print("ZIP:", zip_val)
-
-        print("FIRST visible:",
-              self.driver.find_element(*self.FIRST).is_displayed())
-
-        print("FIRST enabled:",
-              self.driver.find_element(*self.FIRST).is_enabled())
-
-        print("LAST visible:",
-              self.driver.find_element(*self.LAST).is_displayed())
-
-        print("LAST enabled:",
-              self.driver.find_element(*self.LAST).is_enabled() )
-
-        print("ZIP visible:",
-              self.driver.find_element(*self.ZIP).is_displayed())
-
-        print("ZIP enabled:",
-              self.driver.find_element(*self.ZIP).is_enabled())
 
         print("FIRST VALUE:", self.driver.find_element(By.ID, "first-name").get_attribute("value"))
         print("LAST VALUE:", self.driver.find_element(By.ID, "last-name").get_attribute("value"))
@@ -74,20 +60,22 @@ class CheckoutPage(BasePage):
     def continue_checkout(self):
         self.debug_url("Current url: ")
         self.click(self.CONTINUE)
-        self.debug_url("Current url: ")
+
+    @allure.step("Finish checkout")
+    def finish_checkout(self):
+        self.wait.until(
+            EC.url_contains("checkout-step-two")
+        )
 
         self.wait.until(
             EC.presence_of_element_located(
                 (By.ID, "checkout_summary_container")
             )
         )
+        assert "checkout-step-two" in self.driver.current_url
 
         print("NOW ON STEP TWO:", self.driver.current_url)
-
-    @allure.step("Finish checkout")
-    def finish_checkout(self):
         self.click(self.FINISH)
-
         self.wait.until(
             EC.visibility_of_element_located(self.SUCCESS)
         )

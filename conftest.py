@@ -1,10 +1,8 @@
 import allure
 import pytest
-from pip._internal.utils import datetime
 
 from core.driver_factory import create_driver
 import os
-from datetime import datetime
 
 @pytest.fixture
 def driver():

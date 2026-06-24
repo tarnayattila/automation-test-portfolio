@@ -86,6 +86,11 @@ class BasePage:
     def is_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator)).is_displayed()
 
+    def wait_for_disappear(self, locator, timeout=10):
+        WebDriverWait(self.driver, timeout).until(
+            EC.invisibility_of_element_located(locator)
+        )
+
     def debug_url(self, label="URL"):
         print(f"[{label}] {self.driver.current_url}")
         return self.driver.current_url
