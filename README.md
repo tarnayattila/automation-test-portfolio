@@ -51,7 +51,7 @@ conftest.py – pytest fixtures
 
 ### 1. Clone the repository
 
-git clone https://github.com/tarnayattila/automation-framework.git
+git clone https://github.com/tarnayattila/automation-test-portfolio.git
 cd automation-framework
 
 
