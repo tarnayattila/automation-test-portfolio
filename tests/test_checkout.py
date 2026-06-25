@@ -25,9 +25,8 @@ def test_checkout(driver):
     inventory.get_cart_count()
     assert inventory.get_cart_count() == "1"
     inventory.open_cart()
-
+    assert "cart" in driver.current_url
     cart.start_checkout()
-
     checkout.fill_info(
         checkout_data["first_name"],
         checkout_data["last_name"],

@@ -38,7 +38,7 @@ class BasePage:
 
     def type(self, locator, text,):
 
-                element = self.wait.until(EC.visibility_of_element_located(locator))
+                element = self.wait.until(EC.element_to_be_clickable(locator))
 
                 self.driver.execute_script(
                     "arguments[0].scrollIntoView({block: 'center'});",
@@ -47,11 +47,8 @@ class BasePage:
 
                 element.click()
                 element.clear()
-
                 element.send_keys(text)
-                self.wait.until(
-                    lambda d: d.find_element(*locator).get_attribute("value") == text
-                )
+
 
     def type_and_verify(self, locator, text):
         self.type(locator, text)

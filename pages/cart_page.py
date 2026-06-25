@@ -24,7 +24,6 @@ class CartPage(BasePage):
     @allure.step("Start checkout")
     def start_checkout(self):
         self.debug_url("Current url: ")
-        self.wait.until(EC.url_contains("cart"))
         self.click(self.CHECKOUT)
         try:
             error = self.driver.find_element(*self.ERROR)
