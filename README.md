@@ -52,7 +52,7 @@ conftest.py – pytest fixtures
 ### 1. Clone the repository
 
 git clone https://github.com/tarnayattila/automation-test-portfolio.git
-cd automation-framework
+cd automation-test-portfolio
 
 
 ### 2. Create virtual environment
